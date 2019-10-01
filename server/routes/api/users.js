@@ -1,9 +1,10 @@
 const Users = require("../../models/User");
 const router = require("express").Router();
+const bcrypt = require("bcryptjs");
 
 //get
-router.get("/", (req, res) => {
-    Users.find({})
+router.get("/user/:username", (req, res) => {
+    Users.find({ username: req.params.username })
         .then(user => {
             res.send(user);
         })
@@ -11,23 +12,24 @@ router.get("/", (req, res) => {
             res.send(err);
         });
 });
-//add
-router.post("/", (req, res) => {
-    let newUser = new Users({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        username: req.body.username
-    });
-    newUser
-        .save()
-        .then(added => {
-            res.send(added);
-        })
-        .catch(err => {
-            res.send(err);
+//register
+router.post("/register", (req, res) => {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        let newUser = new Users({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            username: req.body.username,
+            password: hash
         });
+        newUser
+            .save()
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.send(err);
+            });
+    });
 });
-
-//delete
 
 module.exports = router;
