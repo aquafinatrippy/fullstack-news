@@ -3,14 +3,21 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 //get
-router.get("/user/:username", (req, res) => {
-    Users.find({ username: req.params.username })
-        .then(user => {
-            res.send(user);
-        })
-        .catch(err => {
-            res.send(err);
-        });
+router.get('/user/allUsers', async (req, res) => {
+    try {
+        const users = await Users.find({})
+        res.send(users)
+    } catch (error) {
+        res.status(400).send(error)
+    }
+})
+router.get("/user/:username", async (req, res) => {
+    try {
+        const user = await Users.find({ username: req.params.username})
+        res.send(user)
+    } catch (error) {
+        res.status(400).send('couldnt find the user', error)   
+    }
 });
 //register
 router.post("/register", (req, res) => {
