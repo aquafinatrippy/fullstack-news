@@ -54,7 +54,7 @@ router.post("/authenticate", async (req, res) => {
   try {
     const user = await Users.findOne({ username: req.body.username });
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
-      const token = jwt.sign({ sub: user.id }, config.secret);
+      jwt.sign({ sub: user.id }, config.secret);
       res.send("logged in");
     } else {
       res.send("Wrong password");
