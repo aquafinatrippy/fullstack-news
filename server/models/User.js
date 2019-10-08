@@ -1,9 +1,11 @@
 const mongoose = require("../database");
+const validator = require("validator");
 
 let userScheme = mongoose.Schema({
     firstName: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     lastName: {
         type: String,
@@ -15,8 +17,26 @@ let userScheme = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minLength: 7,
+        validate(value) {
+            if (validator.isEmpty(value)) {
+                throw new Error("Please enter password");
+            } else if (validator.equals(value.toLowerCase(), "password")) {
+                throw new Error("Password is invalid");
+            } else if (validator.contains(value.toLowerCase(), "password")) {
+                throw new Error("password should not contain password");
+            }
+        }
     },
+    tokens: [
+        {
+            token: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     created: {
         type: Date,
         default: Date.now
