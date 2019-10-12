@@ -1,9 +1,9 @@
 const News = require("../../models/News");
 const router = require("express").Router();
 
-router.get("/news/allNews", async (req, res) => {
+router.get("/news/all", async (req, res) => {
   try {
-    const news = News.find({});
+    const news = await News.find({});
     res.send(news);
   } catch (error) {
     res.status(400).send(`Couldnt get all news: ${error}`);
@@ -13,8 +13,8 @@ router.get("/news/allNews", async (req, res) => {
 router.post("/news", async (req, res) => {
   try {
     const news = new News({
-      author: req.body.author,
-      authorId: req.user._id,
+      author: req.body.name,
+      authorId: req.body.id,
       title: req.body.title,
       content: req.body.content
     });
