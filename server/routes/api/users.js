@@ -1,57 +1,56 @@
-const Users = require("../../models/User");
 const router = require("express").Router();
-const bcrypt = require("bcryptjs");
-//get
-router.get("/user/allUsers", async (req, res) => {
-    try {
-        const users = await Users.find({});
-        res.send(users);
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
-router.get("/user/:username", async (req, res) => {
-    try {
-        const user = await Users.find({ username: req.params.username });
-        res.send(user);
-    } catch (error) {
-        res.status(400).send("couldnt find the user", error);
-    }
-});
-router.get("/user/current", async (req, res) => {
-    try {
-        const user = await Users.findOne({ username: req.user._id });
-        res.send(user);
-    } catch (error) {
-        res.status(400).send(`Failed gettinr current user: ${error}`);
-    }
-});
+const User = require("../../models/User");
+const auth = require("../../middleware/auth");
 //register
-router.post("/register", async (req, res) => {
-    try {
-        let user = await Users.findOne({ username: req.body.username });
-        if (user) {
-            return res.send("user with that username is registered");
-        }
-        let hash = await bcrypt.hash(req.body.password, 10);
-        user = new Users({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            username: req.body.username,
-            password: hash
-        });
-        res.send(user);
-    } catch (error) {
-        res.send(error);
+router.post("/users", async (req, res) => {
+  try {
+    const user = new User(req.body);
+    await user.save();
+    const token = await user.generateAuthToken();
+    res.status(201).send({ user, token });
+  } catch (error) {
+    res.status(400).send(`Error creating user: ${error}`);
+  }
+});
+//login
+router.post("/users/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findByCredentials(email, password);
+    if (!user) {
+      return res.status(401).send({ error: "login failed, check auth" });
     }
+    const token = await user.generateAuthToken();
+    res.send({ user, token });
+  } catch (error) {
+    res.status(400).send(`Login error: ${error}`);
+  }
+});
+//get current acc
+router.get("/me", auth, async (req, res) => {
+  res.send(req.user);
 });
 
-//login auth
-router.post("/authenticate", async (req, res) => {
-    try {
-    } catch (error) {
-        res.status(400).send(`Couldnt log in: ${error}`);
-    }
+//logout
+router.post("/users/me/logout", auth, async (req, res) => {
+  try {
+    req.user.tokens = req.user.tokens.filter(token => {
+      return token.token != req.token;
+    });
+    await req.user.save();
+    res.send("succesful logout");
+  } catch (error) {
+    res.status(500).send(`error with logout: ${error}`);
+  }
+});
+router.post("/users/me/logoutall", auth, async (req, res) => {
+  try {
+    req.user.tokens.splice(0, req.user.tokens.length);
+    await req.user.save();
+    res.send();
+  } catch (error) {
+    res.status(500).send(`error with logout: ${error}`);
+  }
 });
 
 module.exports = router;
