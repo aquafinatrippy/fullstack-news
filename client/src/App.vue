@@ -2,12 +2,48 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>|
-      <router-link to="/login">Login</router-link>
+      <router-link to="/about" v-if="isLoggedIn">About</router-link>|
+      <router-link to="/login">Login</router-link>|
+      <router-link to="/register">register</router-link>|
+      <span>
+        <a @click="logout">Logout</a>
+      </span>|
+      <router-link to="/secure">secure</router-link>
     </div>
     <router-view />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn;
+    }
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout").then(() => {
+        this.$router.push("/login");
+      });
+    },
+    created() {
+      this.$http.interceptors.response.use(undefined, function(err) {
+        return new Promise(function(resolve, reject) {
+          if (
+            err.status === 401 &&
+            err.config &&
+            !err.config.__isRetryRequest
+          ) {
+            this.$store.dispatch(logout);
+          }
+          throw err;
+        });
+      });
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {

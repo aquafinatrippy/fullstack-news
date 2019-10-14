@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import newsService from '@/newsService'
+import newsService from '@/services/newsService'
 export default {
     name: 'News',
     data(){

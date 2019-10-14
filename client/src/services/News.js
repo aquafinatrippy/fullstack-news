@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3000/api/news/allNews";
+const url = "http://localhost:3000/api/news/news";
 
 class Service {
     static getNews() {

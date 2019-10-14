@@ -1,17 +1,19 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import { TokenService } from "./services/storage.service";
-import { ApiService } from "./services/api.service";
+import store from '@/store'
+import axios from 'axios'
 
-Vue.config.productionTip = false;
+Vue.prototype.$http = axios
+const token = localStorage.getItem('token')
 
-ApiService.init(process.env.VUE_APP_ROOT_API);
-if (TokenService.getToken()) {
-  ApiService.setHeader();
+if(token){
+  Vue.prototype.$http.defaults.headers.common['Authorization'] = token
 }
+
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount("#app");
