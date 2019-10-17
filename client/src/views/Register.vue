@@ -47,14 +47,13 @@
           <div class="row">
             <button
               style="margin-left:65px;"
-              type="submit"
-              name="btn_login"
               class="col s6 btn btn-small white black-text waves-effect z-depth-1 y-depth-1"
             >Register</button>
           </div>
         </center>
       </div>
     </form>
+    <p v-if="feedback">{{feedback}}</p>
   </div>
 </template>
 
@@ -65,7 +64,8 @@ export default {
     return {
       name: null,
       email: null,
-      password: null
+      password: null,
+      feedback: null
     };
   },
   methods: {
@@ -77,8 +77,11 @@ export default {
       };
       this.$store
         .dispatch("signup", data)
-        .then(() => this.$router.push("login"))
-        .catch(err => alert(err));
+        .then((res) => {
+          //this.$router.push("login")
+          this.feedback = res
+          })
+        .catch(err => {this.feedback = err});
     }
   }
 };

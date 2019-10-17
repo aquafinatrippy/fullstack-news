@@ -1,6 +1,6 @@
 <template>
   <div>
-    <form @submit="login">
+    <form @submit.prevent="login">
       <div class="container">
         <div
           class="z-depth-3 y-depth-3 x-depth-3 grey green-text lighten-4 row"
@@ -15,14 +15,7 @@
 
           <div class="row">
             <div class="input-field col s12">
-              <input
-                class="validate"
-                type="text"
-                name="username"
-                id="email"
-                v-model="email"
-                required
-              />
+              <input class="validate" type="email" name="email" id="email" v-model="email" required />
               <label for="email">Email</label>
             </div>
           </div>
@@ -49,8 +42,6 @@
             <div class="row">
               <button
                 style="margin-left:65px;"
-                type="submit"
-                name="btn_login"
                 class="col s6 btn btn-small white black-text waves-effect z-depth-1 y-depth-1"
               >Login</button>
             </div>
@@ -58,6 +49,7 @@
         </div>
       </div>
     </form>
+    <p v-if="feedback">{{feedback}}</p>
   </div>
 </template>
 <script>
@@ -66,7 +58,8 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      feedback: null
     };
   },
   methods: {
@@ -74,9 +67,14 @@ export default {
       let email = this.email;
       let password = this.password;
       this.$store
-        .dispatch("login", {email, password})
-        .then(() => this.$router.push("/"))
-        .catch(err => alert(err));
+        .dispatch("login", { email, password })
+        .then(res => {
+          //this.$router.push("/")
+          this.feedback = res;
+        })
+        .catch(err => {
+          this.feedback = err;
+        });
     }
   }
 };

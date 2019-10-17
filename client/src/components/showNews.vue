@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <div v-for="oneNews in news">
+    <div v-for="(oneNews, index) in news" v-bind:key="index">
       <div>{{oneNews}}</div>
     </div>
     <div v-if="feedback">{{feedback}}</div>
