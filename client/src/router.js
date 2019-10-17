@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "@/views/Login";
 import secure from "@/views/secure";
 import Register from "@/views/Register";
+import store from "@/store";
 
 Vue.use(Router);
 
@@ -28,11 +29,7 @@ const router = new Router({
         {
             path: "/login",
             name: "login",
-            component: Login,
-            meta: {
-                public: true,
-                onlyWhenLoggedOut: true
-            }
+            component: Login
         },
         {
             path: "/register",
@@ -42,21 +39,24 @@ const router = new Router({
         {
             path: "/secure",
             name: "secure",
-            component: secure
+            component: secure,
+            meta: {
+                requiresAuth: true
+            }
         }
     ]
 });
 
 router.beforeEach((to, from, next) => {
-  if(to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.getters.isLoggedIn) {
-      next()
-      return
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+            next();
+            return;
+        }
+        next("/login");
+    } else {
+        next();
     }
-    next('/login') 
-  } else {
-    next() 
-  }
-})
+});
 
 export default router;

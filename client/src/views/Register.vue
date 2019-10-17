@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form @submit="signUp">
+    <form @submit.prevent="signUp">
       <div
         class="z-depth-3 y-depth-3 x-depth-3 grey green-text lighten-4 row"
         style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px; margin-top: 100px; solid #EEE;"
@@ -8,32 +8,25 @@
         <div class="section"></div>
         <div class="section"></div>
 
-        <div class="section">
-          <i class="mdi-alert-error red-text"></i>
+        <div class="section" v-if="feedback">
+          <i class="mdi-alert-error red-text">{{feedback}}</i>
         </div>
 
         <div class="row">
           <div class="input-field col s12">
-            <input class="validate" type="text" name="name" v-model="name" required />
+            <input class="validate" type="text" v-model="name" required />
             <label for="email">Name</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input class="validate" type="text" name="email" id="email" v-model="email" required />
+            <input class="validate" type="text" v-model="email" required />
             <label for="email">Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col m12">
-            <input
-              class="validate"
-              type="password"
-              name="password"
-              v-model="password"
-              id="password"
-              required
-            />
+            <input class="validate" type="password" v-model="password" required />
             <label for="password">Password</label>
           </div>
           <label style="float: right;">
@@ -53,7 +46,6 @@
         </center>
       </div>
     </form>
-    <p v-if="feedback">{{feedback}}</p>
   </div>
 </template>
 
@@ -76,12 +68,13 @@ export default {
         password: this.password
       };
       this.$store
-        .dispatch("signup", data)
-        .then((res) => {
-          //this.$router.push("login")
-          this.feedback = res
-          })
-        .catch(err => {this.feedback = err});
+        .dispatch("register", data)
+        .then(res => {
+          this.$router.push({ name: "login" });
+        })
+        .catch(err => {
+          this.feedback = err;
+        });
     }
   }
 };

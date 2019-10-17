@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3000/api/news/news";
+const url = "http://localhost:3000/api/news/all";
 
 class Service {
     static getNews() {
@@ -9,8 +9,8 @@ class Service {
                 const res = await axios.get(url);
                 const data = res.data;
                 resolve(
-                    data.map(genre => ({
-                        ...genre
+                    data.map(news => ({
+                        ...news
                     }))
                 );
             } catch (err) {

@@ -9,26 +9,19 @@
           <div class="section"></div>
           <div class="section"></div>
 
-          <div class="section">
-            <i class="mdi-alert-error red-text"></i>
+          <div class="section" v-if="feedback">
+            <i class="mdi-alert-error red-text">{{feedback}}</i>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <input class="validate" type="email" name="email" id="email" v-model="email" required />
+              <input class="validate" type="email" v-model="email" required />
               <label for="email">Email</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col m12">
-              <input
-                class="validate"
-                type="password"
-                name="password"
-                id="password"
-                v-model="password"
-                required
-              />
+              <input class="validate" type="password" v-model="password" required />
               <label for="password">Password</label>
             </div>
             <label style="float: right;">
@@ -43,13 +36,13 @@
               <button
                 style="margin-left:65px;"
                 class="col s6 btn btn-small white black-text waves-effect z-depth-1 y-depth-1"
+                type="submit"
               >Login</button>
             </div>
           </center>
         </div>
       </div>
     </form>
-    <p v-if="feedback">{{feedback}}</p>
   </div>
 </template>
 <script>
@@ -68,9 +61,8 @@ export default {
       let password = this.password;
       this.$store
         .dispatch("login", { email, password })
-        .then(res => {
-          //this.$router.push("/")
-          this.feedback = res;
+        .then(() => {
+          this.$router.push("/");
         })
         .catch(err => {
           this.feedback = err;

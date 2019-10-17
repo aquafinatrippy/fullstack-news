@@ -3,28 +3,29 @@
     <div v-for="(oneNews, index) in news" v-bind:key="index">
       <div>{{oneNews}}</div>
     </div>
-    <div v-if="feedback">{{feedback}}</div>
+    <div v-if="error">{{error}}</div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import Service from "@/services/News";
 
 export default {
   name: "showNews",
-  props: {
-    news: [],
-    feedback: null
+  data() {
+    return {
+      news: [],
+      error: null
+    };
   },
-  mounted() {
-    axios
-      .get("http://localhost:3000/api/news/all")
-      .then(res => {
-        this.news = res.data;
-      })
-      .catch(err => {
-        this.feedback = err;
-      });
+  async mounted() {
+    try {
+      this.news = await Service.getNews();
+      const state = this.$store.getters;
+      console.log(state);
+    } catch (error) {
+      this.error = error;
+    }
   }
 };
 </script>
