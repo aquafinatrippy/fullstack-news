@@ -10,7 +10,7 @@
       <div v-if="isLoggedIn">
         <router-link to="/about">
           <i class="material-icons">lock</i>
-          About
+          <p>About</p>
         </router-link>
       </div>
       <div v-if="!isLoggedIn">
@@ -32,9 +32,6 @@
             <p>Logout</p>
           </a>
         </span>
-      </div>
-      <div v-if="isLoggedIn">
-        <router-link to="/secure">secure</router-link>
       </div>
     </div>
     <router-view />
@@ -65,7 +62,7 @@ export default {
             err.config &&
             !err.config.__isRetryRequest
           ) {
-            this.$store.dispatch("logout");
+            this.$store.dispatch(logout);
           }
           throw err;
         });
@@ -102,5 +99,6 @@ export default {
 }
 .logOutBtn {
   cursor: pointer;
+  padding-bottom: 5%;
 }
 </style>

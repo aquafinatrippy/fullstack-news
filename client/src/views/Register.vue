@@ -69,7 +69,7 @@ export default {
       };
       this.$store
         .dispatch("register", data)
-        .then(res => {
+        .then(() => {
           this.$router.push({ name: "login" });
         })
         .catch(err => {

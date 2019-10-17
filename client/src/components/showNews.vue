@@ -1,9 +1,24 @@
 <template>
-  <div class="hello">
-    <div v-for="(oneNews, index) in news" v-bind:key="index">
-      <div>{{oneNews}}</div>
-    </div>
+  <div class="container">
     <div v-if="error">{{error}}</div>
+    <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
+      <div class="card horizontal">
+        <div class="card-image">
+          <img
+            src="https://previews.123rf.com/images/aquir/aquir1504/aquir150401107/39120040-example-grunge-retro-red-isolated-ribbon-stamp.jpg"
+          />
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <h4>{{oneNews.title}}</h4>
+            <p>{{oneNews.content}}</p>
+          </div>
+          <div class="card-action">
+            <a href="#" class="green-text">This is a link</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,8 +36,6 @@ export default {
   async mounted() {
     try {
       this.news = await Service.getNews();
-      const state = this.$store.getters;
-      console.log(state);
     } catch (error) {
       this.error = error;
     }
