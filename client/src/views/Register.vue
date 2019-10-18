@@ -20,7 +20,7 @@
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input class="validate" type="text" v-model="email" required />
+            <input class="validate" type="email" v-model="email" required />
             <label for="email">Email</label>
           </div>
         </div>
@@ -70,7 +70,7 @@ export default {
       this.$store
         .dispatch("register", data)
         .then(() => {
-          this.$router.push({ name: "login" });
+          this.$router.push({ name: "home" });
         })
         .catch(err => {
           this.feedback = err;

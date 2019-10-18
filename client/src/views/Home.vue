@@ -1,17 +1,20 @@
 <template>
   <div class="home">
-    <showNews/>
+    <AddBtn />
+    <showNews />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import showNews from '@/components/showNews.vue'
+import showNews from "@/components/showNews.vue";
+import AddBtn from "@/components/AddBtn";
 
 export default {
-  name: 'home',
+  name: "home",
   components: {
-    showNews
+    showNews,
+    AddBtn
   }
-}
+};
 </script>

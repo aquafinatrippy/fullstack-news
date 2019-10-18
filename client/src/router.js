@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "@/views/Login";
 import secure from "@/views/secure";
 import Register from "@/views/Register";
+import NewNews from "@/views/NewNews";
 import store from "@/store";
 
 Vue.use(Router);
@@ -40,6 +41,14 @@ const router = new Router({
             path: "/secure",
             name: "secure",
             component: secure,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/add",
+            name: "add",
+            component: NewNews,
             meta: {
                 requiresAuth: true
             }

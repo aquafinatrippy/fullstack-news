@@ -62,7 +62,7 @@ export default {
       this.$store
         .dispatch("login", { email, password })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push({ name: "home" });
         })
         .catch(err => {
           this.feedback = err;

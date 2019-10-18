@@ -9,7 +9,7 @@
       </div>
       <div v-if="isLoggedIn">
         <router-link to="/about">
-          <i class="material-icons">lock</i>
+          <i class="material-icons">info</i>
           <p>About</p>
         </router-link>
       </div>
@@ -46,12 +46,15 @@ export default {
     },
     current() {
       return this.$store.getters.authStatus;
+    },
+    user() {
+      return this.$store.getters.currentUser;
     }
   },
   methods: {
     logout() {
       this.$store.dispatch("logout").then(() => {
-        this.$router.push("/login");
+        this.$router.push({ name: "login" });
       });
     },
     created() {
@@ -62,7 +65,7 @@ export default {
             err.config &&
             !err.config.__isRetryRequest
           ) {
-            this.$store.dispatch(logout);
+            this.$store.dispatch("logout");
           }
           throw err;
         });
