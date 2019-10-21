@@ -28,15 +28,7 @@ const userSchema = mongoose.Schema({
   admin: {
     type: Boolean,
     default: false
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true
-      }
-    }
-  ]
+  }
 });
 
 mongoose.set("useCreateIndex", true);
@@ -54,7 +46,6 @@ userSchema.methods.generateAuthToken = async function() {
   // Generate an auth token for the user
   const user = this;
   const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY, {expiresIn: '1h'});
-  user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;
 };

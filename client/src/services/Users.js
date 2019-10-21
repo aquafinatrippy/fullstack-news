@@ -14,11 +14,7 @@ class User {
             }
         });
     }
-    static addNewNews(title, content, author, authorId){
-        return axios.post(url + 'news', {
-            title, content, author, authorId
-        })
-    }
+    
 }
 
 export default User;

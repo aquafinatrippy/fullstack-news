@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="error">{{error}}</div>
-    <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
+    <div class="col" v-for="(oneNews, index) in news" v-bind:key="index" >
       <div class="card horizontal">
         <div class="card-image">
           <img
@@ -10,11 +10,17 @@
         </div>
         <div class="card-stacked">
           <div class="card-content">
+            <p>{{oneNews.author}}</p>
             <h4>{{oneNews.title}}</h4>
             <p>{{oneNews.content}}</p>
           </div>
           <div class="card-action">
+            <p>{{oneNews.createdAt}}</p>
             <a href="#" class="green-text">This is a link</a>
+            <div>
+              <router-link :to="{name: 'viewNews', params: {news: index}}">Edit</router-link>
+              <button @click="deleteNews(id)">delete</button>
+            </div>
           </div>
         </div>
       </div>
@@ -23,7 +29,7 @@
 </template>
 
 <script>
-import Service from "@/services/News";
+import NewsService from "@/services/News";
 
 export default {
   name: "showNews",
@@ -35,10 +41,13 @@ export default {
   },
   async mounted() {
     try {
-      this.news = await Service.getNews();
+      this.news = await NewsService.getNews();
     } catch (error) {
       this.error = error;
     }
+  },
+  methods: {
+    deleteNews() {}
   }
 };
 </script>

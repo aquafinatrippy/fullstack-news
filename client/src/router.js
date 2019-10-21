@@ -5,6 +5,8 @@ import Login from "@/views/Login";
 import secure from "@/views/secure";
 import Register from "@/views/Register";
 import NewNews from "@/views/NewNews";
+import NewsPage from "@/views/NewsPage";
+import Profile from '@/views/Profile'
 import store from "@/store";
 
 Vue.use(Router);
@@ -49,6 +51,19 @@ const router = new Router({
             path: "/add",
             name: "add",
             component: NewNews,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/news/:news",
+            name: "viewNews",
+            component: NewsPage
+        },
+        {
+            path: '/profile',
+            name: 'Profile',
+            component: Profile,
             meta: {
                 requiresAuth: true
             }

@@ -2,10 +2,12 @@ const mongoose = require("../database");
 
 const newsSchema = mongoose.Schema({
     author: {
-        type: String
+        type: String,
+        required: true
     },
     authorId: {
-        type: String
+        type: String,
+        required: true
     },
     title: {
         type: String,

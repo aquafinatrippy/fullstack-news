@@ -1,6 +1,12 @@
 <template>
   <div id="app">
     <div id="nav">
+      <div v-if="isLoggedIn">
+        <router-link to="/profile">
+          <i class="material-icons">account_box</i>
+          <p>Profile</p>
+        </router-link>
+      </div>
       <div>
         <router-link to="/">
           <i class="material-icons">event_note</i>
