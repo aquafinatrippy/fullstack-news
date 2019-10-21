@@ -24,7 +24,7 @@ class Service {
         })
     }
     static remove(id){
-        return axios.delete()
+        return axios.delete(url + 'news/' + id)
     }
 }
 

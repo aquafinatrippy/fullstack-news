@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div v-if="error">{{error}}</div>
-    <div class="col" v-for="(oneNews, index) in news" v-bind:key="index" >
+    <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
       <div class="card horizontal">
         <div class="card-image">
           <img
@@ -19,7 +19,7 @@
             <a href="#" class="green-text">This is a link</a>
             <div>
               <router-link :to="{name: 'viewNews', params: {news: index}}">Edit</router-link>
-              <button @click="deleteNews(id)">delete</button>
+              <button @click="deleteNews(oneNews._id)">delete</button>
             </div>
           </div>
         </div>
@@ -47,7 +47,10 @@ export default {
     }
   },
   methods: {
-    deleteNews() {}
+    async deleteNews(id) {
+      await NewsService.remove(id)
+      this.news = await NewsService.getNews();
+    }
   }
 };
 </script>
