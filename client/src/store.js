@@ -81,11 +81,13 @@ export default new Vuex.Store({
                 delete axios.defaults.headers.common["Authorization"];
                 resolve();
             });
+        },
+        addNews(){
+            
         }
     },
     getters: {
         isLoggedIn: state => !!state.token,
-        authStatus: state => state.status,
-        currentUser: state => state.user
+        authStatus: state => state.status
     }
 });
