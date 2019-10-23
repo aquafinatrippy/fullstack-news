@@ -47,8 +47,15 @@ export default {
   async created() {
     try {
       const user = await UserService.currentUser();
-      console.log(user);
-      console.log(user._id);
+      let userId = user._id;
+      this.news.forEach(element => {
+        if (element.authorId == userId) {
+          this.correctUser = "correct";
+        } else {
+          this.correctUser = null;
+          userId = null;
+        }
+      });
     } catch (error) {
       this.error = error;
     }

@@ -2,9 +2,9 @@
   <div>
     <h1>Single news page</h1>
     <div>
-        <p>{{news.title}}</p>
-        <p>{{news.content}}</p>
-        <p>{{news.author}}</p>
+      <p>{{news.title}}</p>
+      <p>{{news.content}}</p>
+      <p>{{news.author}}</p>
     </div>
     <div v-if="feedback">{{feedback}}</div>
   </div>
@@ -25,9 +25,7 @@ export default {
     console.log(this.news);
     try {
       const reconize = this.$route.params.news;
-      console.log(reconize);
       const result = await NewsService.singleNews(reconize);
-      console.log(result);
       this.news = result;
     } catch (error) {
       this.feedback = error;

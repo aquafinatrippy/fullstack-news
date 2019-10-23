@@ -41,11 +41,17 @@
       </div>
     </div>
     <router-view />
+    <Footer />
   </div>
 </template>
 
 <script>
+import Footer from '@/components/Footer'
+
 export default {
+  components: {
+    Footer
+  },
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn;
@@ -82,6 +88,14 @@ export default {
 </script>
 
 <style lang="scss">
+body {
+     display: flex;
+     min-height: 100vh;
+     flex-direction: column;
+ }
+ main {
+     flex: 1 0 auto;
+ }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
