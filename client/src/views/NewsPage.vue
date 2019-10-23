@@ -1,10 +1,14 @@
 <template>
-  <div>
-    <h1>Single news page</h1>
+  <div class="container">
+    <h1>{{news.title}}</h1>
     <div>
-      <p>{{news.title}}</p>
+      <img
+        class="responsive-img"
+        src="https://previews.123rf.com/images/aquir/aquir1504/aquir150401107/39120040-example-grunge-retro-red-isolated-ribbon-stamp.jpg"
+      />
+      <p></p>
       <p>{{news.content}}</p>
-      <p>{{news.author}}</p>
+      <p>Author: {{news.author}}</p>
     </div>
     <div v-if="feedback">{{feedback}}</div>
   </div>
@@ -22,7 +26,6 @@ export default {
     };
   },
   async mounted() {
-    console.log(this.news);
     try {
       const reconize = this.$route.params.news;
       const result = await NewsService.singleNews(reconize);

@@ -13,7 +13,7 @@
           <p>News</p>
         </router-link>
       </div>
-      <div v-if="isLoggedIn">
+      <div>
         <router-link to="/about">
           <i class="material-icons">info</i>
           <p>About</p>
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+import Footer from "@/components/Footer";
 
 export default {
   components: {
@@ -89,13 +89,14 @@ export default {
 
 <style lang="scss">
 body {
-     display: flex;
-     min-height: 100vh;
-     flex-direction: column;
- }
- main {
-     flex: 1 0 auto;
- }
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: rgba(102, 102, 153, 0.1);
+}
+main {
+  flex: 1 0 auto;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

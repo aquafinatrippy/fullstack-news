@@ -1,7 +1,7 @@
 <template>
   <div v-if="isLogged">
     <router-link to="/add">
-      <a class="btn-floating btn-large waves-effect waves-light red">
+      <a class="btn-floating btn-large waves-effect waves-light green">
         <i class="material-icons">add</i>
       </a>
     </router-link>
@@ -10,11 +10,11 @@
 
 <script>
 export default {
-    name: 'AddBtn',
-    computed: {
-        isLogged(){
-            return this.$store.getters.isLoggedIn
-        }
-    },
-}
+  name: "AddBtn",
+  computed: {
+    isLogged() {
+      return this.$store.getters.isLoggedIn;
+    }
+  }
+};
 </script>

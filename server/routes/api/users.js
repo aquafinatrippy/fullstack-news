@@ -39,11 +39,7 @@ router.get("/me", auth, async (req, res) => {
 //logout
 router.post("/users/me/logout", auth, async (req, res) => {
     try {
-        req.user.tokens = req.user.tokens.filter(token => {
-            return token.token != req.token;
-        });
-        await req.user.save();
-        res.send("succesful logout");
+        res.send({ message: "succesfuly logged out" });
     } catch (error) {
         res.status(500).send(`error with logout: ${error}`);
     }

@@ -10,12 +10,12 @@
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <p>{{oneNews.author}}</p>
             <h4>{{oneNews.title}}</h4>
-            <p>{{oneNews.content}}</p>
+            <p class="newsContent">{{oneNews.content}}</p>
           </div>
           <div class="card-action">
-            <p>{{oneNews.createdAt}}</p>
+            <p style="text-align: right;">{{oneNews.createdAt}}</p>
+            <p style="text-align: left;">Author: {{oneNews.author}}</p>
             <router-link
               :to="{name: 'viewNews', params: {news: oneNews._id}}"
               class="green-text"
@@ -49,7 +49,7 @@ export default {
       const user = await UserService.currentUser();
       let userId = user._id;
       this.news.forEach(element => {
-        if (element.authorId == userId) {
+        if (userId == element.authorId) {
           this.correctUser = "correct";
         } else {
           this.correctUser = null;
@@ -91,5 +91,13 @@ li {
 }
 a {
   color: #42b983;
+}
+.newsContent {
+  text-align: left;
+  display: block;
+  max-width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 </style>
