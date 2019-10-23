@@ -17,9 +17,9 @@
           <div class="card-action">
             <p>{{oneNews.createdAt}}</p>
             <router-link
-              :to="{name: 'viewNews', params: {news: oneNews.authorId}}"
+              :to="{name: 'viewNews', params: {news: oneNews._id}}"
               class="green-text"
-            >This is a link</router-link>
+            >Read more</router-link>
             <div v-if="correctUser">
               <router-link :to="{name: 'viewNews', params: {news: index}}">Edit</router-link>
               <button @click="deleteNews(oneNews._id)">delete</button>

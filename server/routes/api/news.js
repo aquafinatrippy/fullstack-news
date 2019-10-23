@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 router.get("/article/:id", async (req, res) => {
     try {
-        const news = await News.findOne({ authorId: req.params.id });
+        const news = await News.findOne({ _id: req.params.id });
         res.send(news);
     } catch (error) {
         res.status(400).send(`Couldnt get single news: ${error}`);
