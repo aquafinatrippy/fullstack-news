@@ -1,5 +1,5 @@
 const Comment = require("../../models/Comment");
-const router = require("express").Router;
+const router = require("express").Router();
 
 router.post("/comment/add", async (req, res) => {
     try {
@@ -11,6 +11,15 @@ router.post("/comment/add", async (req, res) => {
         res.send(comment);
     } catch (error) {
         res.status(400).send(`Failed to post comment ${error}`);
+    }
+});
+
+router.get("/comments", async (req, res) => {
+    try {
+        const comments = await Comment.find({});
+        res.send(comments);
+    } catch (error) {
+        res.status(400).send(`Couldnt get comments: ${error}`);
     }
 });
 
