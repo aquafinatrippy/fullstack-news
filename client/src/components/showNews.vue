@@ -16,8 +16,11 @@
           </div>
           <div class="card-action">
             <p>{{oneNews.createdAt}}</p>
-            <a href="#" class="green-text">This is a link</a>
-            <div>
+            <router-link
+              :to="{name: 'viewNews', params: {news: oneNews.authorId}}"
+              class="green-text"
+            >This is a link</router-link>
+            <div v-if="correctUser">
               <router-link :to="{name: 'viewNews', params: {news: index}}">Edit</router-link>
               <button @click="deleteNews(oneNews._id)">delete</button>
             </div>
@@ -30,14 +33,25 @@
 
 <script>
 import NewsService from "@/services/News";
+import UserService from "@/services/Users";
 
 export default {
   name: "showNews",
   data() {
     return {
       news: [],
-      error: null
+      error: null,
+      correctUser: null
     };
+  },
+  async created() {
+    try {
+      const user = await UserService.currentUser();
+      console.log(user);
+      console.log(user._id);
+    } catch (error) {
+      this.error = error;
+    }
   },
   async mounted() {
     try {
@@ -48,7 +62,7 @@ export default {
   },
   methods: {
     async deleteNews(id) {
-      await NewsService.remove(id)
+      await NewsService.remove(id);
       this.news = await NewsService.getNews();
     }
   }

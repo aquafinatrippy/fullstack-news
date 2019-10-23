@@ -6,7 +6,7 @@ class Service {
     static getNews() {
         return new Promise(async (resolve, reject) => {
             try {
-                const res = await axios.get(url + 'news/all');
+                const res = await axios.get(url + "news/all");
                 const data = res.data;
                 resolve(
                     data.map(news => ({
@@ -18,13 +18,27 @@ class Service {
             }
         });
     }
-    static addNewNews(title, content, author, authorId){
-        return axios.post(url + 'news', {
-            title, content, author, authorId
-        })
+    static addNewNews(title, content, author, authorId) {
+        return axios.post(url + "news", {
+            title,
+            content,
+            author,
+            authorId
+        });
     }
-    static remove(id){
-        return axios.delete(url + 'news/' + id)
+    static remove(id) {
+        return axios.delete(url + "news/" + id);
+    }
+    static singleNews(reconize) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(url + "article/" + reconize);
+                const data = res.data;
+                resolve(data);
+            } catch (error) {
+                reject(error);
+            }
+        });
     }
 }
 
