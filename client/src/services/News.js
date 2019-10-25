@@ -3,6 +3,20 @@ import axios from "axios";
 const url = "http://localhost:3000/api/";
 
 class Service {
+    static getExamples() {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(
+                    "https://newsapi.org/v2/top-headlines?sources=google-news&apiKey=" +
+                        process.env.VUE_APP_NEWS_API
+                );
+                const data = res.data;
+                resolve(data);
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
     static getNews() {
         return new Promise(async (resolve, reject) => {
             try {

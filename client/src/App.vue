@@ -41,16 +41,19 @@
       </div>
     </div>
     <router-view />
+    <ExampleNews />
     <Footer />
   </div>
 </template>
 
 <script>
 import Footer from "@/components/Footer";
+import ExampleNews from '@/components/ExampleNews'
 
 export default {
   components: {
-    Footer
+    Footer,
+    ExampleNews
   },
   computed: {
     isLoggedIn() {
