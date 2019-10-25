@@ -2,6 +2,7 @@
   <div class="home">
     <AddBtn />
     <showNews />
+    <ExampleNews />
   </div>
 </template>
 
@@ -10,11 +11,14 @@
 import showNews from "@/components/showNews.vue";
 import AddBtn from "@/components/AddBtn";
 
+import ExampleNews from "@/components/ExampleNews";
+
 export default {
   name: "home",
   components: {
     showNews,
-    AddBtn
+    AddBtn,
+    ExampleNews
   }
 };
 </script>

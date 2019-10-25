@@ -14,6 +14,12 @@
 
         <div class="row">
           <div class="input-field col s12">
+            <input class="validate" type="text" v-model="imageUrl" required />
+            <label for="imageUrl">Profile image url</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
             <input class="validate" type="text" v-model="name" required />
             <label for="email">Name</label>
           </div>
@@ -54,6 +60,7 @@ export default {
   name: "Register",
   data() {
     return {
+      imageUrl: null,
       name: null,
       email: null,
       password: null,
@@ -63,6 +70,7 @@ export default {
   methods: {
     signUp() {
       let data = {
+        imageUrl: this.imageUrl,
         name: this.name,
         email: this.email,
         password: this.password
