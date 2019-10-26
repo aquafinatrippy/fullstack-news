@@ -63,6 +63,7 @@ export default {
   async mounted() {
     try {
       this.news = await NewsService.getNews();
+      this.arrayRotate(this.news, true)
     } catch (error) {
       this.error = error;
     }
@@ -71,6 +72,14 @@ export default {
     async deleteNews(id) {
       await NewsService.remove(id);
       this.news = await NewsService.getNews();
+    },
+    arrayRotate(arr, reverse){
+      if(reverse){
+        arr.unshift(arr.pop())
+      }else{
+        arr.push(arr.shift())
+      }
+      return arr
     }
   }
 };
