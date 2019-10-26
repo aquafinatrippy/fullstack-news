@@ -1,6 +1,10 @@
 const mongoose = require("../database");
 
 const newsSchema = mongoose.Schema({
+    imageUrl: {
+        type: String,
+        required: true
+    },
     author: {
         type: String,
         required: true

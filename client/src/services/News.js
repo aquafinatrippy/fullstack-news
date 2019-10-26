@@ -32,8 +32,9 @@ class Service {
             }
         });
     }
-    static addNewNews(title, content, author, authorId) {
+    static addNewNews(imageUrl, title, content, author, authorId) {
         return axios.post(url + "news", {
+            imageUrl,
             title,
             content,
             author,

@@ -22,6 +22,7 @@ router.get("/news/all", async (req, res) => {
 router.post("/news", async (req, res) => {
     try {
         const news = new News({
+            imageUrl: req.body.imageUrl,
             author: req.body.author,
             authorId: req.body.authorId,
             title: req.body.title,

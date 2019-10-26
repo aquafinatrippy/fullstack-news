@@ -12,6 +12,12 @@
           <label>Title</label>
         </div>
       </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input type="text" class="validate" v-model="imageUrl" required />
+          <label>Image Url</label>
+        </div>
+      </div>
       <input type="hidden" v-model="authorId" />
       <input type="hidden" v-model="author" />
       <div class="row">
@@ -48,6 +54,7 @@ export default {
   name: "NewNews",
   data() {
     return {
+      imageUrl: null,
       currentUser: null,
       author: null,
       authorId: null,
@@ -66,6 +73,7 @@ export default {
     async postNews() {
       try {
         await NewsService.addNewNews(
+          this.imageUrl,
           this.title,
           this.content,
           this.author,

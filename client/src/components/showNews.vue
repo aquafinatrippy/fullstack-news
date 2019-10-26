@@ -5,7 +5,7 @@
       <div class="card horizontal">
         <div class="card-image">
           <img
-            src="https://previews.123rf.com/images/aquir/aquir1504/aquir150401107/39120040-example-grunge-retro-red-isolated-ribbon-stamp.jpg"
+            :src="oneNews.imageUrl"
           />
         </div>
         <div class="card-stacked">
@@ -41,7 +41,7 @@ export default {
     return {
       news: [],
       error: null,
-      correctUser: null
+      correctUser: 'xx'
     };
   },
   async created() {
