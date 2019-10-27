@@ -66,7 +66,7 @@ export default {
       return this.$store.getters.authStatus;
     },
     user() {
-      return this.$store.getters.currentUser;
+      return this.$store.getters.userInfo;
     }
   },
   methods: {
@@ -77,6 +77,7 @@ export default {
     }
   },
   created() {
+    console.log(localStorage.token)
     this.$http.interceptors.response.use(undefined, err => {
       return new Promise((resolve, reject) => {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
