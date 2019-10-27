@@ -4,9 +4,7 @@
     <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
       <div class="card horizontal">
         <div class="card-image">
-          <img
-            v-bind:src="oneNews.urlToImage"
-          />
+          <img v-bind:src="oneNews.urlToImage" />
         </div>
         <div class="card-stacked">
           <div class="card-content">
@@ -14,12 +12,9 @@
             <p class="newsContent">{{oneNews.content}}</p>
           </div>
           <div class="card-action">
-            <p style="text-align: right;">{{oneNews.createdAt}}</p>
+            <p style="text-align: right;">{{oneNews.publishedAt}}</p>
             <p style="text-align: left;">Author: {{oneNews.author}}</p>
-            <router-link
-              :to="{name: 'viewNews', params: {news: oneNews._id}}"
-              class="green-text"
-            >Read more</router-link>
+            <a :href="oneNews.url" class="green-text">Read more</a>
           </div>
         </div>
       </div>
@@ -42,7 +37,6 @@ export default {
     try {
       const examples = await NewsService.getExamples();
       this.news = examples.articles;
-      console.log(this.news);
     } catch (error) {
       this.error = error;
     }
@@ -69,9 +63,6 @@ a {
 .newsContent {
   text-align: left;
   display: block;
-  max-width: 100px;
-  overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
 }
 </style>

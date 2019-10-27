@@ -47,8 +47,14 @@
 
 <script>
 import Footer from "@/components/Footer";
+import UserService from "@/services/Users";
 
 export default {
+  data() {
+    return {
+      isAdmin: null
+    };
+  },
   components: {
     Footer
   },

@@ -41,7 +41,7 @@ export default {
     return {
       news: [],
       error: null,
-      correctUser: 'xx'
+      correctUser: null
     };
   },
   async created() {
