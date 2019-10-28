@@ -1,9 +1,10 @@
 const News = require("../../models/News");
 const router = require("express").Router();
 
-router.get("/article/news", async (req, res) => {
+router.get("/article/:authorId", async (req, res) => {
     try {
-        const news = await News.findOne({ authorId: req.user.id });
+        console.log(req);
+        const news = await News.find({ authorId: req.params.authorId });
         res.send(news);
     } catch (error) {
         res.send(`Error gettin user news: ${error}`);

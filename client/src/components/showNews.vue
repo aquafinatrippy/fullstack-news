@@ -18,10 +18,6 @@
               :to="{name: 'viewNews', params: {news: oneNews._id}}"
               class="green-text"
             >Read more</router-link>
-            <div v-if="correctUser">
-              <router-link :to="{name: 'viewNews', params: {news: index}}">Edit</router-link>
-              <button @click="deleteNews(oneNews._id)">delete</button>
-            </div>
           </div>
         </div>
       </div>
@@ -38,19 +34,8 @@ export default {
   data() {
     return {
       news: [],
-      error: null,
-      correctUser: null
+      error: null
     };
-  },
-  created() {
-    this.news.forEach(element => {
-      if (this.$store.getters.user._id === element.authorId) {
-        this.correctUser = "correct";
-      } else {
-        this.correctUser = null;
-        userId = null;
-      }
-    });
   },
   async mounted() {
     try {

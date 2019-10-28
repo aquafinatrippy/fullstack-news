@@ -55,6 +55,17 @@ class Service {
             }
         });
     }
+    static UserPosts(authorID){
+        return new Promise(async (resolve, reject) => {
+            try {
+                const res = await axios.get(url + 'article/' + authorID)
+                const data = res.data
+                resolve(data)
+            } catch (error) {
+                reject(error)
+            }
+        })
+    }
 }
 
 export default Service;

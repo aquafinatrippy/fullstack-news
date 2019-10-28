@@ -15,15 +15,20 @@
         </div>
       </div>
     </div>
+    <UserPosts />
   </div>
 </template>
 
 
 <script>
 import UserService from "@/services/Users";
+import UserPosts from "@/components/UserPosts";
 
 export default {
   name: "Profile",
+  components: {
+    UserPosts
+  },
   data() {
     return {
       imageUrl: null,
