@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>User posted News</h1>
+    <h3>MANAGE YOUR POSTED NEWS</h3>
     <table class="highlight">
       <thead>
         <tr>
@@ -15,7 +15,9 @@
           <td>{{single.title}}</td>
           <td>{{single.createdAt}}</td>
           <td>
-            <button @click="deleteNews(single._id)">delete</button>
+            <button @click="deleteNews(single._id)" class="waves-effect waves-light btn red">
+              <i class="material-icons left">remove</i>delete
+            </button>
           </td>
         </tr>
       </tbody>
@@ -58,6 +60,7 @@ export default {
 
 <style lang="scss">
 table {
-  background-color: gray;
+  background-color: rgba(235, 230, 249, 1);
+  margin: 10% 0;
 }
 </style>
