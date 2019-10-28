@@ -4,9 +4,7 @@
     <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
       <div class="card horizontal">
         <div class="card-image">
-          <img
-            :src="oneNews.imageUrl"
-          />
+          <img :src="oneNews.imageUrl" />
         </div>
         <div class="card-stacked">
           <div class="card-content">
@@ -44,26 +42,20 @@ export default {
       correctUser: null
     };
   },
-  async created() {
-    try {
-      const user = await UserService.currentUser();
-      let userId = user._id;
-      this.news.forEach(element => {
-        if (userId == element.authorId) {
-          this.correctUser = "correct";
-        } else {
-          this.correctUser = null;
-          userId = null;
-        }
-      });
-    } catch (error) {
-      this.error = error;
-    }
+  created() {
+    this.news.forEach(element => {
+      if (this.$store.getters.user._id === element.authorId) {
+        this.correctUser = "correct";
+      } else {
+        this.correctUser = null;
+        userId = null;
+      }
+    });
   },
   async mounted() {
     try {
       this.news = await NewsService.getNews();
-      this.arrayRotate(this.news, true)
+      this.arrayRotate(this.news, true);
     } catch (error) {
       this.error = error;
     }
@@ -73,13 +65,13 @@ export default {
       await NewsService.remove(id);
       this.news = await NewsService.getNews();
     },
-    arrayRotate(arr, reverse){
-      if(reverse){
-        arr.unshift(arr.pop())
-      }else{
-        arr.push(arr.shift())
+    arrayRotate(arr, reverse) {
+      if (reverse) {
+        arr.unshift(arr.pop());
+      } else {
+        arr.push(arr.shift());
       }
-      return arr
+      return arr;
     }
   }
 };

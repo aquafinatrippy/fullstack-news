@@ -26,14 +26,19 @@ router.post("/users/login", async (req, res) => {
             return res.status(401).send({ error: "login failed, check auth" });
         }
         const token = await user.generateAuthToken();
-        res.send({ user, token });
+        res.header("Authorization", token).send({ user, token });
     } catch (error) {
         res.status(400).send(`Login error: ${error}`);
     }
 });
 //get current acc
 router.get("/me", auth, async (req, res) => {
-    res.send(req.user);
+    try {
+        const user = await User.findOne({ _id: req.user._id });
+        res.send(user);
+    } catch (error) {
+        res.status(400).send(`Couldnt get current user: ${error}`);
+    }
 });
 
 //logout

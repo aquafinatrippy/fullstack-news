@@ -47,14 +47,8 @@
 
 <script>
 import Footer from "@/components/Footer";
-import UserService from "@/services/Users";
 
 export default {
-  data() {
-    return {
-      isAdmin: null
-    };
-  },
   components: {
     Footer
   },
@@ -67,6 +61,9 @@ export default {
     },
     user() {
       return this.$store.getters.userInfo;
+    },
+    admin() {
+      return this.$store.getters.userInfo.admin;
     }
   },
   methods: {
@@ -77,7 +74,7 @@ export default {
     }
   },
   created() {
-    console.log(localStorage.token)
+    console.log(localStorage.token);
     this.$http.interceptors.response.use(undefined, err => {
       return new Promise((resolve, reject) => {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {

@@ -1,6 +1,15 @@
 const News = require("../../models/News");
 const router = require("express").Router();
 
+router.get("/article/news", async (req, res) => {
+    try {
+        const news = await News.findOne({ authorId: req.user.id });
+        res.send(news);
+    } catch (error) {
+        res.send(`Error gettin user news: ${error}`);
+    }
+});
+
 router.get("/article/:id", async (req, res) => {
     try {
         const news = await News.findOne({ _id: req.params.id });

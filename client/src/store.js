@@ -7,7 +7,7 @@ export default new Vuex.Store({
     state: {
         status: "",
         user: {},
-        token:  ""
+        token: ""
     },
     mutations: {
         auth_request(state) {
@@ -76,11 +76,17 @@ export default new Vuex.Store({
         },
         logout({ commit }) {
             return new Promise(async (resolve, reject) => {
-                await axios.post("http://localhost:3000/api/users/me/logout");
-                commit("logout");
-                localStorage.removeItem("token");
-                delete axios.defaults.headers.common["Authorization"];
-                resolve();
+                try {
+                    await axios.post(
+                        "http://localhost:3000/api/users/me/logout"
+                    );
+                    commit("logout");
+                    localStorage.removeItem("token");
+                    delete axios.defaults.headers.common["Authorization"];
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
             });
         }
     },
