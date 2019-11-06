@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const dbpath =
-  "mongodb+srv://aqua:aqua1234@aquacluster-vkc9a.mongodb.net/fullstackNews";
+  "mongodb+srv://tanel:tanel1234@aquacluster-vkc9a.mongodb.net/fullstackNews";
 
 mongoose.Promise = global.Promise;
 

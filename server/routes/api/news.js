@@ -3,7 +3,6 @@ const router = require("express").Router();
 
 router.get("/article/:authorId", async (req, res) => {
     try {
-        console.log(req);
         const news = await News.find({ authorId: req.params.authorId });
         res.send(news);
     } catch (error) {

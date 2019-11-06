@@ -37,7 +37,6 @@
 
 
 <script>
-import axios from "axios";
 import UserService from "@/services/Users";
 import NewsService from "@/services/News";
 
@@ -58,7 +57,6 @@ export default {
     const user = await UserService.currentUser();
     this.author = user.name;
     this.authorId = user._id;
-    console.log(user);
   },
   methods: {
     async postNews() {

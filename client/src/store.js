@@ -13,7 +13,7 @@ export default new Vuex.Store({
         auth_request(state) {
             state.status = "loading";
         },
-        auth_success(state, user, token) {
+        auth_success(state, user) {
             state.status = "success";
             state.user = user;
             state.token = localStorage.getItem("token");

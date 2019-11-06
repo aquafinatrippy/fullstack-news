@@ -4,17 +4,20 @@
     <div class="col" v-for="(oneNews, index) in news" v-bind:key="index">
       <div class="card horizontal">
         <div class="card-image">
-          <img v-bind:src="oneNews.urlToImage" />
+          <img v-bind:src="oneNews.urlToImage" :image="oneNews.urlToImage" />
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <h4>{{oneNews.title}}</h4>
+            <h4 :title="oneNews.title">{{oneNews.title}}</h4>
             <p class="newsContent">{{oneNews.content}}</p>
           </div>
           <div class="card-action">
             <p style="text-align: right;">{{oneNews.publishedAt}}</p>
             <p style="text-align: left;">Author: {{oneNews.author}}</p>
-            <a :href="oneNews.url" class="green-text">Read more</a>
+            <router-link
+              :to="{name: 'viewNews', params: {news: oneNews.id}}"
+              class="green-text"
+            >Read more</router-link>
           </div>
         </div>
       </div>

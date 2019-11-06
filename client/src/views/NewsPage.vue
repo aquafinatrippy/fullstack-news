@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>{{news.title}}</h1>
+    <h1>{{title}}</h1>
     <div>
       <img
         class="responsive-img"
@@ -19,6 +19,7 @@ import NewsService from "@/services/News";
 
 export default {
   name: "NewsPage",
+  props: ["title"],
   data() {
     return {
       news: {},

@@ -27,7 +27,6 @@
 
 <script>
 import NewsService from "@/services/News";
-import UserService from "@/services/Users";
 
 export default {
   name: "showNews",
