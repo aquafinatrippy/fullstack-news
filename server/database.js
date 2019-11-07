@@ -1,21 +1,21 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const dbpath =
-  "mongodb+srv://tanel:tanel1234@aquacluster-vkc9a.mongodb.net/fullstackNews";
+const dbpath = process.env.DB_STRING;
 
 mongoose.Promise = global.Promise;
 
 mongoose
-  .connect(dbpath, {
-    useNewUrlParser: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true
-  })
-  .then(res => {
-    console.log("connected to db");
-  })
-  .catch(err => {
-    console.log(err);
-  });
+    .connect(dbpath, {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true
+    })
+    .then(res => {
+        console.log("connected to db");
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 module.exports = mongoose;

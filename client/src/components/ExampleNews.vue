@@ -14,10 +14,7 @@
           <div class="card-action">
             <p style="text-align: right;">{{oneNews.publishedAt}}</p>
             <p style="text-align: left;">Author: {{oneNews.author}}</p>
-            <router-link
-              :to="{name: 'viewNews', params: {news: oneNews.id}}"
-              class="green-text"
-            >Read more</router-link>
+            <a :href="oneNews.url" class="green-text">Read more</a>
           </div>
         </div>
       </div>
